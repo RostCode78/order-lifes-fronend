@@ -1,4 +1,5 @@
 import React, { createContext, useReducer } from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { AuthReducer } from './AuthReducer';
 
 export interface AuthState {
@@ -7,12 +8,22 @@ export interface AuthState {
     favoriteIcon?: string;
 }
 
-// Estado inicial
 export const authInitialState: AuthState = {
     isLoggedIn: false,
     username: undefined,
     favoriteIcon: undefined,
 };
+
+// Verificar si hay un token almacenado en AsyncStorage
+AsyncStorage.getItem('userToken')
+    .then((token) => {
+        if (token) {
+            authInitialState.isLoggedIn = true;
+        }
+    })
+    .catch((error) => {
+        console.log('Error retrieving token from AsyncStorage:', error);
+    });
 
 // Lo usaremos para decirle a React Native como luce y que expone el context
 export interface AuthContextProps {
