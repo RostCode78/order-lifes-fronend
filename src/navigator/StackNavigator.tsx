@@ -2,26 +2,38 @@
 
 import * as React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { Pagina1Screen } from '../screens/dashboard/Pagina1Screen';
-import { Pagina2Screen } from '../screens/dashboard/Pagina2Screen';
-import { Pagina3Screen } from '../screens/dashboard/Pagina3Screen';
+import LoginScreen from '../screens/LoginScreen';
+import { BottomNavigator } from './BottomNavigator';
 
-export type RootStackParams = {
-    Pagina1Screen: undefined;
-    Pagina2Screen: undefined;
-    Pagina3Screen: undefined;
-}
+export type RootStackParamList = {
+    Dashboard: undefined;
+    Login: undefined;
+};
 
-const Stack = createNativeStackNavigator();
+const Stack = createNativeStackNavigator<RootStackParamList>();
 
 export const StackNavigator = () => {
     return (
         <Stack.Navigator
-            initialRouteName="Pagina2Screen"
+            initialRouteName="Login"
+            screenOptions={{
+                headerShown: false,
+            }}
         >
-            <Stack.Screen name="Pagina1Screen" options={{ title:'Pagina 1'}} component={Pagina1Screen}/>
-            <Stack.Screen name="Pagina2Screen" options={{ title:'Pagina 2'}} component={Pagina2Screen}/>
-            <Stack.Screen name="Pagina3Screen" options={{ title:'Pagina 3'}} component={Pagina3Screen}/>
+            <Stack.Screen
+                name="Login"
+                options={{
+                    title:'Login',
+                }}
+                component={LoginScreen}
+            />
+            <Stack.Screen
+                name="Dashboard"
+                options={{
+                    title:'Dashboard',
+                }}
+                component={BottomNavigator}
+            />
         </Stack.Navigator>
     );
 };
