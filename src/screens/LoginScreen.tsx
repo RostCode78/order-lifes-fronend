@@ -7,7 +7,7 @@ import { API_URL_DEV } from '@env';
 import { DrawerScreenProps } from '@react-navigation/drawer';
 interface Props extends DrawerScreenProps<any, any>{}
 
-const LoginScreen = ({ navigation}: Props ) => {
+const LoginScreen = ({ navigation }: Props ) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
@@ -16,7 +16,7 @@ const LoginScreen = ({ navigation}: Props ) => {
     const handleLogin = async () => {
         try {
             // Send a POST request to the login endpoint with the user's email and password
-            const res = await fetch(`${API_URL_DEV}/auth/login`, {
+            const res = await fetch(`${API_URL_DEV}auth/login`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

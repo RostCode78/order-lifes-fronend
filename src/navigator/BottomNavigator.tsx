@@ -47,7 +47,7 @@ export const BottomNavigator = () => {
                 tabBarShowLabel: false,
                 tabBarStyle:{
                     position: 'absolute',
-                    bottom: 25,
+                    bottom: 24,
                     marginHorizontal: 20,
                     elevation: 0,
                     backgroundColor: colores.white,
