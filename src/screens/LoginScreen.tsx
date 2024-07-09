@@ -1,11 +1,16 @@
 import React, { useState } from 'react';
-import { View, TextInput, Button, Text } from 'react-native';
-import { colores } from '../themes/globalTheme';
+import { View, TextInput, Button, Text, Image, Pressable } from 'react-native';
+import { colores, style, Buttons } from '../themes/globalTheme';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { NavigationProp } from '@react-navigation/native';
 import { API_URL_DEV } from '@env';
 
-import { DrawerScreenProps } from '@react-navigation/drawer';
-interface Props extends DrawerScreenProps<any, any>{}
+import WhiteLogo from './../../assets/icons/logo_white.svg';
+import BackgroundStarfield from './../../assets/background_login.svg';
+
+interface Props {
+    navigation: NavigationProp<any>;
+}
 
 const LoginScreen = ({ navigation }: Props ) => {
     const [email, setEmail] = useState('');
@@ -51,33 +56,173 @@ const LoginScreen = ({ navigation }: Props ) => {
         }
     };
 
+    const GoToSignup = () => {
+        navigation.navigate('Signup');
+    };
+
     return (
         <View style={{
-            backgroundColor: colores.grey800,
-            width: '100%',
-            height: '100%',
-            padding: 24,
+            backgroundColor: colores.bgPrimary,
+            position: 'relative',
         }}>
-            <TextInput
-                placeholder="Correo"
-                value={email}
-                onChangeText={setEmail}
-                placeholderTextColor={colores.grey500}
-                style={{ color: colores.grey100 }}
-            />
-            <TextInput
-                placeholder="Contraseña"
-                value={password}
-                onChangeText={setPassword}
-                placeholderTextColor={colores.grey500}
-                style={{ color: colores.grey100 }}
-                secureTextEntry
-            />
-            <Button
-                title="Iniciar sesión"
-                onPress={handleLogin}
-            />
-            { error && <View style={{ marginTop: 20 }}><Text>{error}</Text></View> }
+            <View style={{
+                width: '100%',
+                height: '100%',
+                position: 'absolute',
+                top: 0,
+                left: 0,
+            }}>
+                <BackgroundStarfield
+                    width={ 800 }
+                    height={ 800 }
+                    opacity={ 0.15 }
+                />
+            </View>
+
+            <View style={{
+                height: '30%',
+                alignItems: 'center',
+                justifyContent: 'center',
+            }}>
+                <WhiteLogo width={120} height={120}/>
+            </View>
+
+            <View style={{
+                height: '70%',
+                backgroundColor: colores.grey100,
+                marginBottom: 0,
+                borderTopLeftRadius: 100,
+                paddingHorizontal: 48,
+                paddingVertical: 24,
+            }}
+            >
+                <View
+                    style={{
+                        width: '100%',
+                        alignItems: 'center',
+                        paddingVertical: 24,
+                    }}
+                >
+                    <Text style={{
+                        color: colores.grey700,
+                        fontSize: 36,
+                        fontWeight: 'regular',
+                        marginBottom: 20,
+                    }}>Inicio Sesión</Text>
+                </View>
+
+                <View
+                    style={{
+                        backgroundColor: colores.white,
+                        padding: 12,
+                        borderRadius: 10,
+                        marginBottom: 24,
+                    }}
+                >
+                    <Text
+                        style={{
+                            color: colores.grey700,
+                            fontWeight: 500,
+                            fontSize: 16,
+                            marginBottom: 6,
+                        }}
+                    >Correo</Text>
+                    <TextInput
+                        placeholder="example@email.com"
+                        value={email}
+                        onChangeText={setEmail}
+                        placeholderTextColor={colores.grey500}
+                        style={{ 
+                            color: colores.grey800,
+                            height: 40,
+                            padding: 0,
+                            fontSize: 16,
+                        }}
+                    />
+                </View>
+
+                <View
+                    style={{
+                        backgroundColor: colores.white,
+                        padding: 12,
+                        borderRadius: 10,
+                        marginBottom: 24,
+                    }}
+                >
+                    <Text
+                        style={{
+                            color: colores.grey700,
+                            fontWeight: 500,
+                            fontSize: 16,
+                            marginBottom: 6,
+                        }}
+                    >Contraseña</Text>
+                    <TextInput
+                        placeholder="* * * * * * * * *"
+                        value={password}
+                        onChangeText={setPassword}
+                        placeholderTextColor={colores.grey500}
+                        style={{ 
+                            color: colores.grey800,
+                            height: 40,
+                            padding: 0,
+                            fontSize: 16,
+                        }}
+                        secureTextEntry
+                    />
+                </View>
+
+                <Pressable
+                    style={{
+                        ...Buttons.buttonPrimary,
+                        width: '100%',
+                    }}
+                    onPress={ handleLogin }
+                >
+                    <Text
+                        style={{
+                            ...Buttons.buttonText,
+                        }}
+                        onPress={handleLogin}
+                    >Iniciar sesión</Text>
+                </Pressable>
+
+                <Pressable
+                    style={{
+                        width: '100%',
+                        height: 'auto',
+                        alignItems: 'center',
+                        marginTop: 24,
+                    }}
+                    onPress={ GoToSignup }
+                >
+                    <Text
+                        style={{
+                            color: colores.grey500,
+                            fontSize: 16,
+                            fontWeight: 'bold',
+                        }}
+                    >¿No tienes una cuenta? Regístrate</Text>
+                </Pressable>
+
+                { error &&
+                    <View
+                        style={{
+                            width: '100%',
+                            alignItems: 'center',
+                            marginTop: 24,
+                        }}
+                    >
+                        <Text
+                            style={{
+                                color: 'red',
+                                fontSize: 16,
+                                marginTop: 12,
+                            }}
+                        >{error}</Text>
+                    </View>
+                }
+            </View>
         </View>
     );
 };

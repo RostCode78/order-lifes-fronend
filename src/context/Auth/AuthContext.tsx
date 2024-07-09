@@ -1,4 +1,4 @@
-import React, { createContext, useReducer } from 'react';
+import React, { createContext, useReducer, useEffect } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { AuthReducer } from './AuthReducer';
 
@@ -38,6 +38,21 @@ export const AuthContext = createContext({} as AuthContextProps);
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     const [authState, dispatch] = useReducer(AuthReducer, authInitialState);
+
+    useEffect(() => {
+        const checkToken = async () => {
+            try {
+                const token = await AsyncStorage.getItem('userToken');
+                if (token) {
+                    dispatch({ type: 'signIn' });
+                }
+            } catch (error) {
+                console.log('Error reading token from AsyncStorage:', error);
+            }
+        };
+
+        checkToken();
+    }, []);
 
     const signIn = () => {
         dispatch({ type: 'signIn' });

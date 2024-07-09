@@ -10,7 +10,8 @@ import { PaperProvider } from 'react-native-paper';
 const App = (): React.JSX.Element => {
   const { authState } = useContext(AuthContext);
 
-  return authState.isLoggedIn ? <StackNavigator/> : <BienvenidaScreen/>;
+  // return authState.isLoggedIn ? <StackNavigator/> : <BienvenidaScreen/>;
+  return <StackNavigator/>;
 };
 
 const AppWrapper = () => {

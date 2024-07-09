@@ -1,24 +1,58 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text } from 'react-native';
+import { colores } from '../themes/globalTheme';
+
+import WhiteLogo from './../../assets/icons/logo_white.svg';
+import BackgroundStarfield from './../../assets/background_login.svg';
 
 const SignupScreen = () => {
     return (
-        <View style={styles.container}>
-            <Text style={styles.title}>Signup Screen</Text>
+        <View style={{
+            backgroundColor: colores.bgPrimary,
+            position: 'relative',
+        }}>
+            <View style={{
+                width: '100%',
+                height: '100%',
+                position: 'absolute',
+                top: 0,
+                left: 0,
+            }}>
+                <BackgroundStarfield
+                    width={ 800 }
+                    height={ 800 }
+                    opacity={ 0.15 }
+                />
+            </View>
+
+            <View style={{
+                height: '15%',
+                alignItems: 'center',
+                justifyContent: 'center',
+            }}>
+                <WhiteLogo width={80} height={80}/>
+            </View>
+
+            <View style={{
+                height: '85%',
+                backgroundColor: colores.grey100,
+                marginBottom: 0,
+                borderTopLeftRadius: 100,
+                paddingHorizontal: 48,
+                paddingVertical: 24,
+            }}
+            >
+                <Text
+                    style={{
+                        color: colores.grey700,
+                        fontSize: 36,
+                        fontWeight: 'regular',
+                        marginBottom: 20,
+                    }}
+                >Hola Amigo</Text>
+            </View>
         </View>
     );
 };
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    title: {
-        fontSize: 24,
-        fontWeight: 'bold',
-    },
-});
 
 export default SignupScreen;

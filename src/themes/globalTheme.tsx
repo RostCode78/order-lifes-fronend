@@ -1,8 +1,7 @@
 import { StyleSheet } from 'react-native';
 
 export const colores = {
-    primary: '#5856D6',
-    secondary: '#FF9427',
+    bgPrimary: '#362A34',
     white: '#FFF',
     black: '#000',
     grey100: '#F3F4F6',
@@ -22,3 +21,18 @@ export const style = StyleSheet.create({
     },
 });
 
+export const Buttons = StyleSheet.create({
+    buttonPrimary: {
+        backgroundColor: colores.grey800,
+        height: 50,
+        borderRadius: 10,
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderTopRightRadius: 0,
+    },
+    buttonText: {
+        color: colores.white,
+        fontSize: 18,
+        fontWeight: 500,
+    },
+});

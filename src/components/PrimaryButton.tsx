@@ -4,10 +4,10 @@ import { StyleSheet } from 'react-native';
 import { colores } from '../themes/globalTheme';
 
 const PrimaryButton = (props: any) => {
-    const filledBgColor = props.color || colores.primary;
+    const filledBgColor = props.color || colores.grey800;
     const outlinedColor = colores.white;
     const bgColor = props.filled ? filledBgColor : outlinedColor;
-    const textColor = props.filled ? colores.white : colores.primary;
+    const textColor = props.filled ? colores.white : colores.grey800;
 
     return (
         <TouchableOpacity
@@ -18,7 +18,11 @@ const PrimaryButton = (props: any) => {
             }}
             onPress={ props.onPress }
         >
-            <Text style={{ fontSize: 18, ... { color: textColor } }}>{ props.title }</Text>
+            <Text 
+                style={{
+                    fontSize: 18,
+                    ...{ color: textColor },
+            }}>{ props.title }</Text>
         </TouchableOpacity>
     );
 };
@@ -27,7 +31,7 @@ const styles = StyleSheet.create({
     button: {
         paddingBottom: 16,
         paddingVertical: 10,
-        borderColor: colores.primary,
+        borderColor: colores.grey800,
         borderWidth: 1,
         borderRadius: 12,
         alignItems: 'center',

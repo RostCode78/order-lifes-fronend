@@ -11,5 +11,6 @@ module.exports = {
       'off' || 'warn' || 'error',
       { 'allowAsProps': true || false },
     ],
+    'no-trailing-spaces': 0,
   },
 };

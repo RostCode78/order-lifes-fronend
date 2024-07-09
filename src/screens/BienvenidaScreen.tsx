@@ -3,11 +3,14 @@ import { View, Text, StyleSheet, Image, Pressable } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import { colores } from '../themes/globalTheme';
 import PrimaryButton from '../components/PrimaryButton';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { NavigationProp } from '@react-navigation/native';
 
-import { DrawerScreenProps } from '@react-navigation/drawer';
-interface Props extends DrawerScreenProps<any, any>{}
+interface Props {
+    navigation: NavigationProp<any>;
+}
 
-const BienvenidaScreen = ( { navigation }: Props ) => {
+const BienvenidaScreen = ({ navigation }: Props) => {
 
     const GoToLogin = () => {
         navigation.navigate('Login');
