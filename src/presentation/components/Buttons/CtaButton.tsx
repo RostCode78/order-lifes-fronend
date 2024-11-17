@@ -13,10 +13,9 @@ interface Props {
     onPress?: () => void;
     urlImage?: any;
     customStyle?: any;
-    customImageStyle?: any;
 }
 
-export const SecondaryButton = ( Props: Props ) => {
+export const CtaButton = ( Props: Props ) => {
     return (
         <Pressable
             onPress={ Props.onPress }
@@ -32,9 +31,8 @@ export const SecondaryButton = ( Props: Props ) => {
                 <Image
                     source={Props.urlImage}
                     style={{
-                        width: 32,
-                        height: 32,
-                        ...Props.customImageStyle,
+                        width: 24,
+                        height: 24,
                     }}
                 />
             )}
@@ -44,17 +42,22 @@ export const SecondaryButton = ( Props: Props ) => {
 
 const styles = StyleSheet.create({
     containerButton: {
-        backgroundColor: '#111111',
-        paddingHorizontal: 12,
-        paddingVertical: 3,
-        borderRadius: 5,
+        backgroundColor: '#f0f1f5',
+        maxHeight: 60,
+        paddingVertical: 12,
+        paddingLeft: 36,
+        paddingRight: 17,
+        borderRadius: 100,
         borderWidth: 1,
-        borderColor: '#2e2e2e',
+        borderColor: '#161616',
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
     },
     textButton: {
-        fontSize: RFValue(12),
-        fontWeight: 'regular',
-        color: '#fff',
+        fontSize: RFValue(14),
+        fontWeight: 'bold',
+        color: '#161616',
         textAlign: 'center',
     },
 });

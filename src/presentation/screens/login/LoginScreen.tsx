@@ -14,64 +14,120 @@ import { NavigationProp } from '@react-navigation/native';
 import { API_URL_DEV } from '@env';
 
 import LinearGradient from 'react-native-linear-gradient';
+import { useForm, Controller } from 'react-hook-form';
 
 import { useLogin } from '../../hooks/useLogin';
 import { SecondaryButton } from '../../components/Buttons/SecondaryButton';
+import { CustomInput } from '../../components/CustomInput/CustomInput';
+import { PrimaryButton } from '../../components/Buttons/PrimaryButton';
+import { GhostButton } from '../../components/Buttons/GhostButton';
+import { RFValue } from 'react-native-responsive-fontsize';
 
 
 interface Props {
     navigation: NavigationProp<any>;
 }
 
-const LoginScreen = ({ navigation }: Props ) => {
+interface FormData {
+    email: string;
+    password: string;
+}
 
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [error, setError] = useState('');
+const LoginScreen = ({ navigation }: Props ) => {
 
     const GoToSignup = () => {
         navigation.navigate('Signup');
     };
 
-    /*====================
-    =    useLoginHook    =
-    ====================*/
+    /*===============
+    =    useForm    =
+    ===============*/
+
+    // useLoginHook
 
     const { isLoading, userLogin, loadUserLogin } = useLogin();
 
-    const handleLoginUserHook = () => {
+    const { control, handleSubmit, formState: { errors } } = useForm<FormData>();
+
+    const onSubmit = ( data: FormData ) => {
+
+        const { email, password } = data;
         loadUserLogin({ email, password });
 
-        console.log( userLogin );
     };
 
     return (
         <View
             style={styles.container}
         >
-            <Text>Hola Amigo</Text>
-
             <View style={ styles.contentLogin }>
 
-                <View style={ styles.contentLoginTop }>
+                <Image
+                    source={require('../../../../assets/lyferLogo.png')}
+                    style={{
+                        width: 150,
+                        height: 150,
+                        objectFit: 'contain',
+                        alignSelf: 'center',
+                    }}
+                />
 
-                    <Image
-                        source={require('../../../../assets/lyferLogo.png')}
-                        style={{
-                            width: '100%',
-                            height: '100%',
-                            objectFit: 'contain',
-                            opacity: 1,
-                        }}
-                    />
-
-                </View>
-
-                <View style={ styles.contentLoginMiddle }>
+                <View style={{ gap: 48, justifyContent: 'center' }}>
 
                     <Text style={ styles.textWhite48 }>Inicia Sesión</Text>
 
-                    <View style={ styles.contentForm }>
+                    <View style={{ gap: 12 }}>
+
+                        <Controller
+                            control={ control }
+                            name="email"
+                            rules={{
+                                required: 'El correo es obligatorio',
+                                pattern: {
+                                    value: /^[^@ ]+@[^@ ]+\.[^@ .]{2,}$/,
+                                    message: 'Correo no es válido',
+                                },
+                            }}
+                            render={({ field: { onChange, value } }) => (
+
+                                <CustomInput
+                                    title="Correo Electrónico"
+                                    placeholder="Ingresa tu correo electrónico"
+                                    onChange={ onChange }
+                                    value={ value }
+                                    type="email"
+                                />
+
+                            )}
+                        />
+
+                        <Controller
+                            control={control}
+                            name="password"
+                            rules={{ required: 'La contraseña es obligatoria' }}
+                            render={({ field: { onChange, value } }) => (
+                                <CustomInput
+                                    title="Contraseña"
+                                    placeholder="Ingresa tu contraseña"
+                                    value={value}
+                                    onChange={onChange}
+                                    isPassword={true}
+                                />
+                            )}
+                        />
+
+                    </View>
+
+                    <View style={{ gap: 12 }}>
+
+                        <PrimaryButton
+                            title="Iniciar Sesión"
+                            onPress={handleSubmit(onSubmit)}
+                        />
+
+                        <GhostButton
+                            title="¿Olvidaste tu contraseña?"
+                        />
 
                     </View>
 
@@ -79,10 +135,11 @@ const LoginScreen = ({ navigation }: Props ) => {
 
                 <View style={ styles.contentLoginBottom }>
 
-                    <Text style={ styles.textGrey18 }>Aun no tienes una cuenta?</Text>
+                    <Text style={ styles.textGrey18 }>¿Aun no tienes una cuenta?</Text>
 
                     <SecondaryButton
                         title="Regístrate"
+                        onPress={ GoToSignup }
                     />
 
                 </View>
@@ -144,29 +201,7 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
     },
 
-    // Content Login Top
-
-    contentLoginTop: {
-        width: '80%',
-        height: '100%',
-        maxHeight: 250,
-        alignSelf: 'center',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-
-    // Content Login Middle
-
-    contentLoginMiddle: {
-        justifyContent: 'center',
-        gap: 42,
-    },
-    contentForm: {
-        gap: 24,
-        minHeight: 50,
-        borderWidth: 1,
-        borderColor: 'red',
-    },
+    // Content Login Middle -> No hay nada de styles por el momento
 
     // Content Login Bottom
 
@@ -183,12 +218,12 @@ const styles = StyleSheet.create({
 
     textGrey18: {
         color: '#808080',
-        fontSize: 18,
+        fontSize: RFValue(12),
         fontWeight: 'regular',
     },
     textWhite48: {
         color: '#fff',
-        fontSize: 36,
+        fontSize: RFValue(28),
         fontWeight: 'bold',
         textAlign: 'center',
     },

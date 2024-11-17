@@ -2,3 +2,6 @@
 
 // Login
 export * from './login/LoginUser.use-case';
+
+// Signup
+export * from './signup/SignupUser.use-case';

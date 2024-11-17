@@ -1,36 +1,38 @@
 import { useState, useEffect } from 'react';
 import * as UseCases from './../../core/use-cases';
 import { lyferDBFetcher } from '../../config/adapters/lyferDB.adapter';
-import { UserData } from '../../core/entities/user.entity';
+import { User } from '../../core/entities/user.entity';
 
-interface LoginData {
+interface SignupData {
+    name: string;
     email: string;
     password: string;
 }
 
-export const useLogin = () => {
+export const useSignup = () => {
 
     const [ isLoading, setIsLoading ] = useState(false);
-    const [ userLogin, setUserLogin ] = useState<UserData>();
+    const [ userSignup, setUserSignup ] = useState<User>();
 
-    const loadUserLogin = async ({ email, password }: LoginData) => {
+    const loadUserSignup = async ({ name, email, password }: SignupData) => {
 
         setIsLoading(true);
-        setUserLogin( undefined );
+        setUserSignup( undefined );
 
         try {
 
-            const user = await UseCases.getUserByEmail(
+            const user = await UseCases.createUser(
                 lyferDBFetcher,
+                name,
                 email,
                 password
             );
 
-            setUserLogin(user);
+            setUserSignup(user);
             console.log(user);
             
         } catch (error) {
-            console.error('Error al iniciar Sesión', error);
+            console.error('Error al crear Usuario', error);
         } finally {
             setIsLoading(false);
         }
@@ -39,8 +41,8 @@ export const useLogin = () => {
 
     return {
         isLoading,
-        userLogin,
-        loadUserLogin,
+        userSignup,
+        loadUserSignup,
     };
 
 };

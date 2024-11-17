@@ -1,5 +1,5 @@
-import { UserData } from '../../core/entities/user.entity';
-import { LoginResponse } from '../interfaces/lyfer-db.responses';
+import { UserData, User } from '../../core/entities/user.entity';
+import { LoginResponse, SignupResponse } from '../interfaces/lyfer-db.responses';
 
 export class UserMapper {
 
@@ -17,6 +17,15 @@ export class UserMapper {
             partnerInvitation: data.userData.partnerInvitation,
         };
 
+    }
+
+    static toUser(data: SignupResponse): User {
+        return {
+            id: data.user.id,
+            token: data.token,
+            name: data.user.name,
+            email: data.user.email,
+        };
     }
 
 }

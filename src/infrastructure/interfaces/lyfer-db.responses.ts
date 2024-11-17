@@ -20,3 +20,17 @@ export interface UserData {
     partnerInvitation:   null;
 }
 
+/*==============
+=    SIGNUP    =
+==============*/
+
+export interface SignupResponse {
+    token: string;
+    user:  User;
+}
+
+export interface User {
+    id:    number;
+    name:  string;
+    email: string;
+}

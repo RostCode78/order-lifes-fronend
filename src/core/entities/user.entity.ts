@@ -9,3 +9,10 @@ export interface UserData {
     partnerInvitationId: null;
     partnerInvitation:   null;
 }
+
+export interface User {
+    id:    number;
+    token: string;
+    name:  string;
+    email: string;
+}
